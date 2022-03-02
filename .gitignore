@@ -6,3 +6,10 @@ raw_data/
 *.csv
 **/__pycache__/
 .env
+
+######
+data/*
+models/*
+streamlit-images/*
+Pipfile*
+.ipynb_checkpoints
