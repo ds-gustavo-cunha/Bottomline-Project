@@ -435,7 +435,7 @@ def clean_document( split_document, remove_numbers_only = True ):
     (9) remove stopwords from sentences
     (10) lemmatize words in sentences
     (11) use part-of-speech technique of the text
-    (11) remove spaces on the article
+    (12) remove spaces on the article
 
     Args
         split_document: a list with sentences of the document.

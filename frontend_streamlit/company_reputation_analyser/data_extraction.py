@@ -24,7 +24,7 @@ def extract_link_input( link ):
     parsed_article = bs.BeautifulSoup(r.content, 'html.parser')
 
     # extract all paragraphs from the HTML data
-    paragraphs = parsed_article.find_all('p')
+    paragraphs = parsed_article.find_all('div')
 
     # instanciate a empty article
     document = ""

@@ -22,22 +22,22 @@ def sentiment_score_to_word( sentiment_score, score_range = (0,1) ):
     if score_range == (0,1):
         # create bins to categorize sentiment
         # six bins between 0 and 1
-        bins = [ 0.2,  0.4,  0.6,  0.8,  1.  ]
+        bins = [ 0.25,  0.75,  1.  ]
+
     # check if sentiment_score is between -1 and 1
     elif score_range == (-1,1):
         # create bins to categorize sentiment
         # six bins between -1 and 1
-        bins = [-0.6, -0.2,  0.2,  0.6,  1. ]
+        bins = [-0.5, +0.5,  1. ]
+
     else: # invalid score_range value
         # raise error
         raise Exception("Invalid score_range param")
 
     # wordy sentiments
-    wordy_sentiments = ["very negative 😖",
-                        "negative 😟",
+    wordy_sentiments = ["negative 😖",
                         "neutral 😐",
-                        "positive 🙂",
-                        "very positive 🤩"]
+                        "positive 🤩"]
 
     # iterate over bins
     for index, threshold in enumerate(bins):
@@ -91,7 +91,7 @@ def sent_analysis_summary(cleaned_sentences,
     # create a dataframe with words and its summary values (ex.: tf-idf)
     # for every sentence (row)
     df_summarized = pd.DataFrame(data = summary_matrix.toarray(),
-                                 columns = summarizer_model.get_feature_names_out()
+                                 columns = summarizer_model.get_feature_names()
                                 )
 
     return df_summarized

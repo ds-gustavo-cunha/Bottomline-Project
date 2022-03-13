@@ -2,3 +2,9 @@
 maxUploadSize = 15
 maxMessageSize = 15
 runOnSave = true
+
+[runner]
+magicEnabled = false
+
+[theme]
+base="light"

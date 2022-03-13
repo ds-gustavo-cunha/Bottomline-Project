@@ -53,3 +53,31 @@ pypi_test:
 
 pypi:
 	@twine upload dist/* -u $(PYPI_USERNAME)
+
+
+
+
+# ----------------------------------
+#      GCP BUCKET
+# ----------------------------------
+
+# export PROJECT_ID, REGION and BUCKET_NAME as enviromental variables
+set_project:
+	@gcloud config set project ${PROJECT_ID}
+
+create_bucket:
+	@gsutil mb -l ${REGION} -p ${PROJECT_ID} gs://${BUCKET_NAME}
+
+
+# path to the file to upload to GCP
+LOCAL_PATH="raw_data/feedback.txt"
+
+# bucket directory inside the given bucket
+BUCKET_FOLDER=feedback
+
+# name for the uploaded file inside of the bucket
+BUCKET_FILE_NAME=$(shell basename ${LOCAL_PATH})
+
+# make command to upload file to GCP bucket
+upload_data:
+	@gsutil cp ${LOCAL_PATH} gs://${BUCKET_NAME}/${BUCKET_FOLDER}/${BUCKET_FILE_NAME}

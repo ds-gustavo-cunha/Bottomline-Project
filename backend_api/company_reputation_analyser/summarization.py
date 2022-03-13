@@ -55,13 +55,13 @@ def tf_idf_summary(cleaned_doc,
 
     # create a dataframe with words and its tf-idf values for every sentence (row)
     df_tf_idf_summary = pd.DataFrame(data = X_tf_idf_summary.toarray(),
-                                     columns = tf_idf_summariser.get_feature_names_out())
+                                     columns = tf_idf_summariser.get_feature_names())
 
 
     return df_tf_idf_summary
 
 
-def get_most_rev_sentences( df_tf_idf_summary, split_doc, num_sent = 5, strategy = "sum"):
+def get_most_rev_sentences( df_tf_idf_summary, split_doc, num_sent = 15, strategy = "sum"):
     """Take the TF-IDF summarized dataframe and choose
     the "num_sent" most relevant sentences according to the chosen strategy
 
@@ -126,17 +126,20 @@ def get_most_rev_sentences( df_tf_idf_summary, split_doc, num_sent = 5, strategy
         # take the sentence mean of TF-IDF values for every word in the sentence
         df_summary_sentences = df_tf_idf_summary.mean(axis = "columns").sort_values(ascending = False)
 
-    ##############################################################################
-    ####### Get the n-th most relevant sentences according to TF-IDF score #######
-    ##############################################################################
+    ##########################################################################
+    ###### Get the 15 most relevant sentences according to TF-IDF score ######
+    ##########################################################################
+
     # instanciate summary list
     summary = []
 
     # iterate over the most relevant sentences
     # up to the required number of sentences to summarize the article
+    # Note that if number of sentences is less than 15, slicing will not raise error
+    # but return the sentences
     for sent in df_summary_sentences.index[:num_sent]:
         # append sentence to summary
-        summary.append( split_doc[sent] )
+        summary.append( split_doc[sent].strip() )
 
     return summary
 

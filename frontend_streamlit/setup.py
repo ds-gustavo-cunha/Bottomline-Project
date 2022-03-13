@@ -5,9 +5,9 @@ with open('requirements.txt') as f:
     content = f.readlines()
 requirements = [x.strip() for x in content if 'git+' not in x]
 
-setup(name='company_reputation_analyser_front_end',
+setup(name='bottomline_project_frontend',
       version="1.0",
-      description="Streamlit front-end for Company Reputation Analyser project",
+      description="Streamlit for the front-end of Bottom___ project",
       packages=find_packages(),
       install_requires=requirements,
       include_package_data=True)
