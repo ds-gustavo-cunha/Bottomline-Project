@@ -6,5 +6,6 @@ raw_data/
 *.csv
 **/__pycache__/
 .env
+models/*
+streamlit-images/*
 Pipfile*
-streamlit-images/

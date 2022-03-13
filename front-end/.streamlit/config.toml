@@ -1,4 +1,0 @@
-[server]
-maxUploadSize = 15
-maxMessageSize = 15
-runOnSave = true
