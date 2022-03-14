@@ -23,16 +23,26 @@ import os
 ############################### CONSTANTS ######################################
 ################################################################################
 
-
 # define a constant that will hold the api url
 CONTAINER_API_URL = os.getenv("COMPANY_REPUTATION_ANALYSER_API_URL")
-MAX_NUM_SENT_SUM = os.getenv("MAX_NUM_SENT_SUM")
-DOUBT_THRESHOLD = os.getenv("DOUBT_THRESHOLD")
+
+# define a constant that will hold the
+# maximum number of sentences for any summary
+MAX_NUM_SENT_SUM = int(os.getenv("MAX_NUM_SENT_SUM"))
+
+# define a constant that will hold the
+# doubt threshold for sentiment analysis
+DOUBT_THRESHOLD = float(os.getenv("DOUBT_THRESHOLD"))
+
+# define if user if allowed to past a link or just a text
+ALLOW_WEB_SCRAPING = bool(os.getenv("BOTTOM_LINE_ALLOW_WEB_SCRAPING"))
+
 
 # print environmental variables on terminal
 print({"API_URL": CONTAINER_API_URL,
       "MAX_NUM_SENT_SUM": MAX_NUM_SENT_SUM,
-      "DOUBT_THRESHOLD": DOUBT_THRESHOLD
+      "DOUBT_THRESHOLD": DOUBT_THRESHOLD,
+      "ALLOW_WEB_SCRAPING": ALLOW_WEB_SCRAPING
       })
 
 
@@ -366,11 +376,21 @@ with col_user_input:
     # set maximum number of characters
     max_chars = 100_000
 
-    # create field to paste text and save the pasted text
-    input = st.text_area(label = "Paste your URL or your text input here:",
-                         max_chars = max_chars,
-                         height = 475,
-                         value = "")
+    # check if web scraping is allowed
+    if ALLOW_WEB_SCRAPING:
+        # create field to paste text and save the pasted text
+        input = st.text_area(label = "Paste your URL or your text input here:",
+                            max_chars = max_chars,
+                            height = 475,
+                            value = "")
+    # in case web scraping is not allowed
+    else:
+        # create field to paste text and save the pasted text
+        input = st.text_area(label = "Paste your text input here:",
+                            max_chars = max_chars,
+                            height = 475,
+                            value = "")
+
 
     # ask for number of sentences on summary
     slider_num_sent_sum = st.slider(label = "Choose the number of sentences you want on the summary:",
@@ -395,31 +415,37 @@ with col_user_summary:
     # instanciate the summary download as empty object
     button_summary_download = st.empty()
 
+# check if web scraping is allowed
+if ALLOW_WEB_SCRAPING:
+    # check if input is a link
+    regex_result = re.match("^(https://|http://|www.)\S+", input.strip())
 
-# check if input is a link
-regex_result = re.match("^(https://|http://|www.)\S+", input.strip())
+    # if input is a link
+    if regex_result is not None:
 
-# if input is a link
-if regex_result is not None:
+        # assing link to document
+        link = regex_result.string
 
-    # assing link to document
-    link = regex_result.string
+        # extract data from the link
+        link_extraction = extract_link_input( link )
 
-    # extract data from the link
-    link_extraction = extract_link_input( link )
+        # check if the result of link extraction input is the one expected
+        if link_extraction != "Invalid URL":
+            document = link_extraction
 
-    # check if the result of link extraction input is the one expected
-    if link_extraction != "Invalid URL":
-        document = link_extraction
+        # there was some error on extract_link_input
+        else:
+            # display some error message and instructions
+            st.subheader("Invalid link. Check it and try again")
+            # does not render the rest of the code
+            st.stop()
 
-    # there was some error on extract_link_input
+    # input is not a link
     else:
-        # display some error message and instructions
-        st.subheader("Invalid link. Check it and try again")
-        # does not render the rest of the code
-        st.stop()
+        # assing pasted ext to document
+        document = input
 
-# input is not a link
+# in case web scraping is not allowed
 else:
     # assing pasted ext to document
     document = input
@@ -441,14 +467,6 @@ if document != "":
         ###########################
         ####### API REQUEST #######
         ###########################
-
-
-        # define a constant that will hold the
-        # maximum number of sentences for any summary
-        MAX_NUM_SENT_SUM = int(os.getenv("MAX_NUM_SENT_SUM"))
-        # define a constant that will hold the
-        # doubt threshold for sentiment analysis
-        DOUBT_THRESHOLD = float(os.getenv("DOUBT_THRESHOLD"))
 
         # make a request to api
         r = sentiment_and_summary_request(CONTAINER_API_URL, document, MAX_NUM_SENT_SUM, DOUBT_THRESHOLD)
@@ -642,6 +660,16 @@ if document != "":
                                        file_name = "summary.txt",
                                        mime = "text/plain")
 
+    # check if status code of API request is 200
+    else:
+        # create columns to display invalid input message
+        _, invalid_input_col, _ = st.columns([1, 1, 1])
+
+        # select the central column
+        with invalid_input_col:
+            # print message of invalid input
+            st.write("INVALID INPUT. Please check it and try again.")
+
     # insert an section break
     st.markdown("---")
 
@@ -653,7 +681,7 @@ if document != "":
 # open a form for user feedback
 with st.form("Feedback form"):
     # create field to input feedback
-    feedback = st.text_area(label = "This is an MVP. Please help us improve it with your feedback!",
+    feedback = st.text_area(label = "This is a MVP. Please help us improve it with your feedback!",
                             max_chars = 1_000,
                             value = "Have you been happy with the summary?\nDid you enjoy the sentiment analysis?\nWhat is your thought on the word cloud?\nDid the AI superpowers improve the results for you?",
                             height = 150
