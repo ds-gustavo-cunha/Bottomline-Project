@@ -2,13 +2,13 @@
 
 ## **What is the problem we will try to solve?**
 
-**TO-DO!!!!!!!!!!!!!!!!!!!!!!!**
+The problem we are tackling is related to the overwhelming amount of information being produced by the modern society. Information per se are valuable but often its very challenging to spotlight the essential and important part out of it - the bottomline, so to say. This mental-filtering process can be very time consuming and also confusing sometimes.
+
+With our technical solution we provide an automated service, which identifies the most relevant sentences within text. 
 
 # **PROBLEM UNDERSTANDING**
 
-## **What is our strategy to solve the problem?**
-
-**TO-DO!!!!!!!!!!!!!!!!!!!!!!!**
+We claim that people rather use their mental ressources efficiently than inefficiently. Furthermore we claim that the current process, in wich informations are getting consumet and digested, has an siginifcant potential of improvement. We see AI as relevant enabler for this potential and therefore as problem solver. 
 
 # **PROJECT CYCLE**
 
@@ -48,6 +48,7 @@ Use the feedback from last project iteration and also user feedback to make impr
 
 # **CONCLUSIONS**
 
+We need to evalute the User Feedback and define conclusion based on this.
 **TO-DO!!!!!!!!!!!!!!!!!!!!!!!**
 
 # **LESSONS LEARNED**
