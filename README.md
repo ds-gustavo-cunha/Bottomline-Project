@@ -48,8 +48,12 @@ Use the feedback from last project iteration and also user feedback to make impr
 
 # **CONCLUSIONS**
 
-We need to evalute the User Feedback and define conclusion based on this.
-**TO-DO!!!!!!!!!!!!!!!!!!!!!!!**
+Based on the first user feedback we defined the following ideas for further improvments:
+1. Improve or remove the sentiment analysis 
+2. Highlight the sentences in the input box, wich are being used in the final summary box
+3. Explain better BERT or remove it
+4. In the upper part: bring the summarized sentences in a order according to the inputed text
+5. Reducing the seize of the word cloud
 
 # **LESSONS LEARNED**
 
