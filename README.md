@@ -43,7 +43,7 @@ Analyse feedback from the last project iteration and use it as a guide for impro
 
 **You can check the Youtube presentation of this project at the following link:**
 
-![demo-day-presentation-youtube](https://www.youtube.com/watch?v=T4gXTbcBV04&t=891s)
+[demo-day-presentation-youtube](https://www.youtube.com/watch?v=T4gXTbcBV04&t=891s)
 
 **You can check the whole solution architecture for this project in the following image:**
 
