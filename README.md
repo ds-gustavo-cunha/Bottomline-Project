@@ -1,6 +1,6 @@
 # **BUSINESS UNDERSTANDING**
 
-## **What is the problem we will try to solve?**
+## **What is the problem we will try to solve? **
 
 The problem we are tackling is related to the overwhelming amount of information being produced by modern society. 
 
@@ -61,7 +61,7 @@ Doing an end-to-end data-science project is very challenging and requires many d
 
 Even within just two weeks, we can use data science to start solving real problems and delivering useful solutions.
 
-# **LESSONS LEARNED**
+# **LESSONS LEARNED 👨‍🏫 **
 
 **How to do an end-to-end NLP Data Science project.**
 
